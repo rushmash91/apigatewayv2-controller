@@ -1,0 +1,16 @@
+apiVersion: apigatewayv2.services.k8s.aws/v1alpha1
+kind: IntegrationResponse
+metadata:
+  name: $INTEGRATION_RESPONSE_NAME
+spec:
+  apiRef:
+    from:
+      name: $API_NAME
+  integrationRef:
+    from:
+      name: $INTEGRATION_NAME
+  integrationResponseKey: $INTEGRATION_RESPONSE_KEY
+  contentHandlingStrategy: $CONTENT_HANDLING_STRATEGY
+  templateSelectionExpression: $TEMPLATE_SELECTION_EXPRESSION
+  responseParameters: {"method.response.header.Content-Type": "$integration.response.header.Content-Type"}
+  responseTemplates: {"application/json": "{\"message\": \"Hello, $input.params('name')\"}"}
